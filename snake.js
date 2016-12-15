@@ -5,7 +5,6 @@ var grid_size;
 var grid_unit_x;
 var grid_unit_y;
 document.onkeydown = handleKeyPress;
-document.onclick = handleMousePress;
 window.onload = function() { init(); }
 
 // temporary draw throttle
@@ -14,12 +13,13 @@ var now, last, dt, fpsInterval, fps;
 // TODO: Convert `dir` property to an enum (if javscript has that)
 // TODO: Find out how to do interpolation in js to remove draw throttling
 // TODO: Maybe restrict food spawning positions.
+// TODO: Fix food spawning inside snake.
 
 function init()
 {
     canvas.width = 800;
     canvas.height = 600;
-    grid_size = 800/40;
+    grid_size = 10;
     grid_unit_x = canvas.width / grid_size;
     grid_unit_y = canvas.height / grid_size;
     snake = {
@@ -86,6 +86,14 @@ function draw()
             food.y = Math.floor((Math.random() * grid_size-1) + 1) * grid_unit_y,
             addTailSegment();
         }
+
+        // Death
+        for (var i = 0; i < snake.tail.length; i++) {
+            // Self intersection
+            if (snake.x === snake.tail[i].x && snake.y === snake.tail[i].y) {
+                init();
+            }
+        }
     }
     window.requestAnimationFrame(draw);
 }
@@ -125,11 +133,6 @@ function handleKeyPress(e)
     } else if (e.key === "s" && snake.dir !== "up") {
         snake.dir = "down";
     }
-}
-
-function handleMousePress(e)
-{
-    addTailSegment();
 }
 
 function addTailSegment()
