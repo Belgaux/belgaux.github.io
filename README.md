@@ -1,2 +1,2 @@
-# oscarhb.github.io
-snake
+# belgaux.github.io
+snake in javascript
