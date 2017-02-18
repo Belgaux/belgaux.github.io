@@ -124,13 +124,13 @@ function moveBlock(block)
 
 function handleKeyPress(e)
 {
-    if (e.key === "d" && snake.dir !== "left") {
+    if ((e.key === "d" || e.key === "ArrowRight") && snake.dir !== "left") {
         snake.dir = "right";
-    } else if (e.key === "a" && snake.dir !== "right") {
+    } else if ((e.key === "a" || e.key == "ArrowLeft") && snake.dir !== "right") {
         snake.dir = "left";
-    } else if (e.key === "w" && snake.dir !== "down") {
+    } else if ((e.key === "w" || e.key == "ArrowUp") && snake.dir !== "down") {
         snake.dir = "up";
-    } else if (e.key === "s" && snake.dir !== "up") {
+    } else if ((e.key === "s" || e.key == "ArrowDown") && snake.dir !== "up") {
         snake.dir = "down";
     }
 }
